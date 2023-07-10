@@ -1,0 +1,18 @@
+{
+    "autoload": {
+        "psr-4": {
+            "sistema\\":"sistema/"
+        },
+        "files": [
+            "sistema/configuracao.php"
+        ]       
+    },
+    "require": {
+        "bissolli/validador-cpf-cnpj": "^1.2",
+        "pecee/simple-router": "5.3.0.5",
+        "twig/twig": "^3.6",
+        "digitalnature/php-ref": "^1.3",
+        "verot/class.upload.php": "^2.1",
+        "phpmailer/phpmailer": "^6.8"
+    }
+}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block corpo %}
+
+<div class="container p-3 mt-5">
+    <div class="col-md-6 col-sm-6 col-lg-4 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <img class="mb-4" src="" alt="" width="72" height="57">
+                <h1 class="h3 mb-3 text-center">Painel Administrativo</h1>
+
+                {{ flash() }}
+
+                <form action="{{ url('admin/login') }}" method="post">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="nome@email.com"
+                            value="{% if dados.email %} {{ dados.email }} {% else %} {{ null}} {% endif %}" />
+                        <label for="email">Email:</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" name="senha" id="senha" placeholder="Senha"
+                            value="{% if dados.senha %}{{ dados.senha }}{% else %}{{null}}{% endif %}" />
+                        <label for="senha">Senha:</label>
+                    </div>
+
+                    <!-- <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" value="remember-me"> Remember me
+                        </label>
+                    </div> -->
+
+                    <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+                    <p class="mt-5 mb-3 text-body-secondary">&copy; {{ "now"|date("Y") }} {{ constant('SITE_NOME') }}
+                    </p>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock corpo %}

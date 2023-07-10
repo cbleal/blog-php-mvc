@@ -1,0 +1,4 @@
+Host: ftp.cblinf.com.br
+Usuário: cblinfcombr
+Senha: p2HAkE$Xu#
+Porta: 21

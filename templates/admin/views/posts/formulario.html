@@ -1,0 +1,82 @@
+{% extends 'dashboard.html' %}
+
+{% block conteudo %}
+
+<!-- breadcrumb -->
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">
+        <a href="{{ url('admin/dashboard') }}">
+            Home
+        </a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{{ url('admin/posts/index') }}">
+            Posts
+        </a>
+    </li>
+    <li class="breadcrumb-item active">
+        Novo
+    </li>
+</ol>
+
+<div class="card mb-4">
+    <!-- <div class="card-header"></div> -->
+    <div class="card-body">
+
+        <form
+            action="{% if post.id %}{{ url('admin/posts/editar/'~post.id) }}{% else %}{{ url('admin/posts/cadastrar') }}{% endif %}"
+            method="post" enctype="multipart/form-data">
+            <!-- TITULO -->
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Título:</label>
+                <input type="text" class="form-control" name="titulo" id="titulo" value="{{ post.titulo }}" />
+            </div>
+            <!-- TEXTO -->
+            <div class="mb-3">
+                <label for="texto" class="form-label">Texto:</label>
+                <textarea class="form-control" name="texto" id="texto" rows="3">{{ post.texto }}</textarea>
+            </div>
+            <!-- STATUS / CATEGORIAS -->
+            <div class="row">
+                <!-- STATUS -->
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status:</label>
+                        <select class="form-select" name="status" id="status">
+                            <option value="1" {% if post.status=='1' %}selected{% endif %}>Ativo</option>
+                            <option value="0" {% if post.status=='0' %}selected{% endif %}>Inativo</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- CATEGORIAS -->
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="categoria_id" class="form-label">Categoria:</label>
+                        <select class="form-select" name="categoria_id" id="categoria_id">
+                            {% for categoria in categorias %}
+                            <option value="{{ categoria.id }}" {% if categoria.id==post.categoria_id %}selected{% endif
+                                %}>
+                                {{ categoria.titulo }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ARQUIVO -->
+            <div class="mb-3">               
+                <input type="file" name="capa" accept=".png, .jpeg, .jpg, .pdf" />                
+            </div>
+
+            <!-- BOTÃO -->
+            <div class="mb-3">
+                <!-- <input type="hidden" name="post_id" value="post.id"> -->
+                <input type="submit" class="btn btn-primary" name="btn-salvar" id="btn-salvar" value="Salvar" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+{% endblock conteudo %}

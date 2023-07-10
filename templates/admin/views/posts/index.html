@@ -1,0 +1,52 @@
+{% extends 'dashboard.html' %}
+
+{% block conteudo %}
+
+<!-- breadcrumb -->
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">
+        <a href="{{ url('admin/dashboard') }}">
+            Home
+        </a>
+    </li>
+    <li class="breadcrumb-item active">
+        Posts
+    </li>
+</ol>
+
+{{ flash() }}
+
+<!-- datatables -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <!-- <i class="fas fa-table me-1"></i>
+        Lista de Posts -->
+        <div>
+            <span class="badge text-bg-secondary">{{ posts.total }} posts</span>
+            <span class="badge text-bg-success">{{ posts.ativo }} ativo(s)</span>
+            <span class="badge text-bg-danger">{{ posts.inativo }} inativo(s)</span>
+        </div>
+        <div>
+            <a href="{{ url('admin/posts/cadastrar') }}" class="btn btn-sm btn-primary">Cadastrar</a>
+        </div>
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table id="tabela_posts" url="{{ url() }}" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Status</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+{% endblock conteudo %}

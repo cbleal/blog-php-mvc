@@ -1,0 +1,87 @@
+{% extends 'dashboard.html' %}
+
+{% block conteudo %}
+
+<!-- breadcrumb -->
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">
+        <a href="{{ url('admin/dashboard') }}">
+            Home
+        </a>
+    </li>
+    <li class="breadcrumb-item active">
+        Usuários
+    </li>
+</ol>
+
+{{ flash() }}
+
+<!-- datatables -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <!-- <i class="fas fa-table me-1"></i>
+        Lista de Posts -->
+        <div>
+            <span class="badge text-bg-secondary">{{ total.total }} usuarios</span>
+            <span class="badge text-bg-success">{{ total.ativo }} ativo(s)</span>
+            <span class="badge text-bg-danger">{{ total.inativo }} inativo(s)</span>
+        </div>
+        <div>
+            <a href="{{ url('admin/usuarios/cadastrar') }}" class="btn btn-sm btn-primary">Cadastrar</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <table id="tabela_usuarios" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nível</th>
+                    <th>Nome</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>                   
+                    <th>ID</th>
+                    <th>Nível</th>
+                    <th>Nome</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.id }}</td>
+                    <td>
+                        {% if usuario.level == 1 %}
+                            Usuário
+                        {% elseif usuario.level == 3 %}
+                            <strong>Admin</strong>
+                        {% endif %}
+                    </td>
+                    <td>{{ usuario.nome }}</td>
+                    <td>
+                        {% if usuario.status == 1 %}
+                        <!-- Ativo -->
+                        <i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>
+                        {% else %}
+                        <!-- Inativo -->
+                        <i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ url('admin/usuarios/editar/'~usuario.id) }}" title="Alterar Registro" class="mr-3"><i class="fa-solid fa-pen"></i></a>
+                        
+                        <a href="{{ url('admin/usuarios/deletar/'~usuario.id) }}" title="Excluir Registro" class="mr-3 text-danger"><i class="fa-solid fa-trash" ></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock conteudo %}

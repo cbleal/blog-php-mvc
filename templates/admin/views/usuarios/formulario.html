@@ -1,0 +1,77 @@
+{% extends 'dashboard.html' %}
+
+{% block conteudo %}
+
+<!-- breadcrumb -->
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">
+        <a href="{{ url('admin/dashboard') }}">
+            Home
+        </a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{{ url('admin/usuarios/index') }}">
+            Usuários
+        </a>
+    </li>
+    <li class="breadcrumb-item active">
+        Novo
+    </li>
+</ol>
+
+<div class="card mb-4">
+    <!-- <div class="card-header"></div> -->
+    <div class="card-body">
+
+        <form
+            action="{% if usuario.id %}{{ url('admin/usuarios/editar/'~usuario.id) }}{% else %}{{ url('admin/usuarios/cadastrar') }}{% endif %}"
+            method="post">
+            <!-- NOME -->
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome:</label>
+                <input type="text" class="form-control" name="nome" id="nome" value="{{ usuario.nome }}" />
+            </div>
+            <!-- EMAIL -->
+            <div class="mb-3">
+                <label for="email" class="form-label">E-mail:</label>
+                <input type="text" class="form-control" name="email" id="email" value="{{ usuario.email }}" />
+            </div>
+            <!-- SENHA -->
+            <div class="mb-3">
+                <label for="senha" class="form-label">Senha:</label>
+                <input type="password" class="form-control" name="senha" id="senha" value="" />
+            </div>
+            <!-- STATUS / NÍVEL -->
+            <div class="row">
+                <!-- STATUS -->
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status:</label>
+                        <select class="form-select" name="status" id="status">
+                            <option value="1" {% if usuario.status=='1' %}selected{% endif %}>Ativo</option>
+                            <option value="0" {% if usuario.status=='0' %}selected{% endif %}>Inativo</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- NÍVEL -->
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="level" class="form-label">Nível:</label>
+                        <select class="form-select" name="level" id="level">
+                            <option value="1" {% if usuario.level=='1' %}selected{% endif %}>Usuário</option>
+                            <option value="3" {% if usuario.level=='3' %}selected{% endif %}>Admin</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTÃO -->
+            <div class="mb-3">
+                <input type="submit" class="btn btn-primary" name="btn-salvar" id="btn-salvar" value="Salvar" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+{% endblock conteudo %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-9 col-md-12">
+            {% if mensagem %}
+                <div class="alert alert-warning" role="alert">
+                    {{ mensagem }}
+                </div>
+            {% endif %}
+            <div class="row">
+                {% for post in posts %}
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <a href="{{ url('post/'~post.id) }}">
+                                    <h5 class="card-title">{{ post.titulo }}</h5>
+                                    <p class="card-text">{{ resumirTexto(post.texto, 80) }}</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-lg-3">
+            {% include 'sidebar.html' %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

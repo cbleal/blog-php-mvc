@@ -1,0 +1,71 @@
+<header class="p-3 text-bg-dark">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <!-- <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                    <use xlink:href="#bootstrap" />
+                </svg>
+            </a> -->
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <!-- HOME -->
+                <li><a href="{{ url() }}" class="nav-link px-2 text-white"><img
+                            src="{{ url('templates/site/assets/img/php-logo.png') }}" alt="" style="width: 100px;"></a></li>
+                <li><a href="{{ url() }}" class="nav-link px-2 text-white">Home</a></li>
+                <li><a href="{{ url('blog') }}" class="nav-link px-2 text-white">Blog</a></li>
+                <!-- CATEGORIAS -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Categorias
+                    </a>
+                    <ul class="dropdown-menu">
+                        {% for categoria in categorias %}
+                        <li><a class="dropdown-item" href="{{ url('categoria/'~categoria.slug) }}">{{ categoria.titulo
+                                }}</a></li>
+                        <!-- <li><a class="dropdown-item" href="{{ url('categoria/'~categoria.id) }}">{{ categoria.titulo }}</a></li> -->
+                        {% endfor %}
+                    </ul>
+                </li>
+                <!-- FALE CONOSCO -->
+                <li><a href="{{ url('contato') }}" class="nav-link px-2 text-white">Fale Conosco</a></li>
+                <!-- SOBRE -->
+                <li><a href="{{ url('sobre') }}" class="nav-link px-2 text-white">Sobre</a></li>
+            </ul>
+
+            <form data-url-busca="{{ url('buscar') }}" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="post"
+                role="search">
+                <input type="search" name="busca" id="busca" class="form-control form-control-dark text-bg-dark"
+                    placeholder="Buscar..." aria-label="Search" />
+            </form>
+
+            <div class="text-end">
+                <!-- <button type="button" class="btn btn-outline-light me-2">Login</button> -->
+                <a href="{{ url('admin/login') }}" class="btn btn-outline-light me-2" target="_blank">
+                    Login
+                </a>
+                <button type="button" class="btn btn-sm btn-warning">
+                    <ul class="navbar-nav ms-auto me-0 me-md-3">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false"><span>{{ usuario().nome }}</span><i
+                                    class="fas fa-user fa-fw"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#!">Settings</a></li>
+                                <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                                <li>
+                                    <hr class="dropdown-divider" />
+                                </li>
+                                <li><a class="dropdown-item" href="{{ url ('admin/sair') }}"
+                                        title="Sair do sistema">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </button>
+            </div>
+        </div>
+
+        <div class="my-3" id="buscaResultado"></div>
+
+    </div>
+</header>

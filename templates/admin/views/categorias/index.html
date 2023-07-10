@@ -1,0 +1,78 @@
+{% extends 'dashboard.html' %}
+
+{% block conteudo %}
+
+<!-- breadcrumb -->
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">
+        <a href="{{ url('admin/dashboard') }}">
+            Home
+        </a>
+    </li>
+    <li class="breadcrumb-item active">
+        Categorias
+    </li>
+</ol>
+
+{{ flash() }}
+
+<!-- datatables -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <!-- <i class="fas fa-table me-1"></i>
+        Lista de Categorias -->
+        <div>
+            <span class="badge text-bg-secondary">{{ total.total }} categorias</span>
+            <span class="badge text-bg-success">{{ total.ativo }} ativa(s)</span>
+            <span class="badge text-bg-danger">{{ total.inativo }} inativa(s)</span>
+        </div>
+        <div>
+            <a href="{{ url('admin/categorias/cadastrar') }}" class="btn btn-sm btn-primary">Cadastrar</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <table id="tabela_categorias" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titulo</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>Titulo</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                {% for categoria in categorias %}
+                <tr>
+                    <td>{{ categoria.id }}</td>
+                    <td>{{ categoria.titulo }}</td>
+                    <td>
+                        {% if categoria.status == 1 %}
+                        <!-- Ativo -->
+                        <i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>
+                        {% else %}
+                        <!-- Inativo -->
+                        <i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ url('admin/categorias/editar/'~categoria.id) }}" title="Alterar Registro" class="mr-3"><i class="fa-solid fa-pen"></i></a>
+                        
+                        <a href="{{ url('admin/categorias/deletar/'~categoria.id) }}" title="Excluir Registro" class="mr-3 text-danger"><i class="fa-solid fa-trash" ></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock conteudo %}

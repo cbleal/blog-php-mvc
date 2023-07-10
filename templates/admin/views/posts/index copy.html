@@ -1,0 +1,110 @@
+{% extends 'dashboard.html' %}
+
+{% block conteudo %}
+
+<!-- breadcrumb -->
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">
+        <a href="{{ url('admin/dashboard') }}">
+            Home
+        </a>
+    </li>
+    <li class="breadcrumb-item active">
+        Posts
+    </li>
+</ol>
+
+{{ flash() }}
+
+<!-- datatables -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <!-- <i class="fas fa-table me-1"></i>
+        Lista de Posts -->
+        <div>
+            <span class="badge text-bg-secondary">{{ posts.total }} posts</span>
+            <span class="badge text-bg-success">{{ posts.ativo }} ativo(s)</span>
+            <span class="badge text-bg-danger">{{ posts.inativo }} inativo(s)</span>
+        </div>
+        <div>
+            <a href="{{ url('admin/posts/cadastrar') }}" class="btn btn-sm btn-primary">Cadastrar</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <table id="tabela_post">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titulo</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>Titulo</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                {% for post in posts.posts %}
+                <tr>
+                    <td>{{ post.id }}</td>
+                    <td>{{ post.titulo }}</td>
+                    <td>
+                        {% if post.status == 1 %}
+                        <!-- Ativo -->
+                        <i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>
+                        {% else %}
+                        <!-- Inativo -->
+                        <i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="#info{{ post.id }}" data-bs-toggle="offcanvas" tooltip="tooltip" title="Status">
+                            <i class="fa-solid fa-arrow-trend-up"></i>
+                        </a>
+
+                        <a href="{{ url('admin/posts/editar/'~post.id) }}" title="Alterar Registro" class="mr-3"><i
+                                class="fa-solid fa-pen"></i></a>
+
+                        <a href="{{ url('admin/posts/deletar/'~post.id) }}" title="Excluir Registro"
+                            class="mr-3 text-danger"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="info{{ post.id }}">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{ post.titulo }}</h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">                       
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <strong>Cadastrado em:</strong> {{ post.cadastrado_em|date('d/m/Y') }}
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Atualizado em:</strong> {{ post.atualizado_em|date('d/m/Y') }}
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Último Post em:</strong> 00/00/0000
+                                <!-- Último Post em: {{ post.ultima_visita_em|date('d/m/Y') }} -->
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Cadastrado por:</strong> {{ post.usuario.nome }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock conteudo %}
